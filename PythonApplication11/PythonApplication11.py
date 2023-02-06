@@ -260,8 +260,8 @@ class Enemy(pygame.sprite.Sprite):
 
 #create buttons
 start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 100, start_image)
-exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, exit_image)
-guide_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 -50, guide_image)
+exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 50, exit_image)
+guide_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, guide_image)
 more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , highscore_image)
 back_button = Button(SCREEN_WIDTH -125, SCREEN_HEIGHT -100, back_image)
 				   
