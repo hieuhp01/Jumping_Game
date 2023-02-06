@@ -166,7 +166,7 @@ class Player():
 						dy = 0
 						self.vel_y = 0
 						self.isJump = False #enable jumping when player stand above the platform
-                #move sideway with platform
+                                #move sideway with platform
 				if platform.move_x != 0:
 					self.rect.x += platform.direction
 					
