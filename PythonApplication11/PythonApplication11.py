@@ -26,6 +26,7 @@ scroll = 0
 bg_scroll = 0
 game_over = False
 main_menu = True
+menu_state = "main"
 score = 0
 
 #create file for saving highscore
@@ -59,6 +60,12 @@ start_image = pygame.image.load('assets/Start_Button.png').convert_alpha()
 start_image = pygame.transform.scale(start_image,(100,50))
 exit_image = pygame.image.load('assets/Exit_Button.png').convert_alpha()
 exit_image = pygame.transform.scale(exit_image,(100,50))
+guide_image = pygame.image.load('assets/Guide_Button.png').convert_alpha()
+guide_image = pygame.transform.scale(guide_image,(100,50))
+highscore_image = pygame.image.load('assets/More_Button.png').convert_alpha()
+highscore_image = pygame.transform.scale(highscore_image,(100,50))
+back_image = pygame.image.load('assets/Back_Button.png').convert_alpha()
+back_image = pygame.transform.scale(back_image,(50,50))
 
 #Function to render text to screen
 def draw_text(text,font,text_color,x,y):
@@ -254,6 +261,9 @@ class Enemy(pygame.sprite.Sprite):
 #create buttons
 start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 100, start_image)
 exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, exit_image)
+guide_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 -50, guide_image)
+more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , highscore_image)
+back_button = Button(SCREEN_WIDTH -125, SCREEN_HEIGHT -100, back_image)
 				   
 #player init position
 player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
@@ -273,13 +283,25 @@ while run:
 	clock.tick(FPS)
 
 	screen.blit(bg_image1, (0,0))
-	draw_text("Press A and D to move",font,RED,100,SCREEN_HEIGHT -200)
-	draw_text("Press W to jump",font,RED,125,SCREEN_HEIGHT -150)
 	if main_menu == True:
-		if exit_button.draw(): #If click exit button then close apllication
-			run = False
-		if start_button.draw(): #If click start button then quit menu screen and start game
-			main_menu = False
+		if menu_state == "main":
+			if exit_button.draw(): #click exit button to close application
+				run = False
+			if start_button.draw(): #click start button to play
+				main_menu = False 
+			if guide_button.draw(): #click option button to show how to play
+				menu_state = "guide"
+			if more_button.draw(): #click more button to show highestscore
+				menu_state = "highscore"
+		if menu_state == "guide":
+			draw_text("Press A and D to move", font, RED, 100,SCREEN_HEIGHT//2 - 100)
+			draw_text("Press W to jump", font, RED, 125,SCREEN_HEIGHT//2)
+			if back_button.draw():
+				menu_state = "main"
+		if menu_state == "highscore":
+			draw_text("HIGHEST SCORE: " + str(high_score), font, RED, 75, 300)
+			if back_button.draw():
+				menu_state = "main"
 	else:
 
 		if game_over == False:
