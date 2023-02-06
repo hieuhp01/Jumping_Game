@@ -322,12 +322,12 @@ while run:
 			#generate enemies
 			if len(enemy_group) == 0 and score > 3000 and score < 8000:
 				enemy = Enemy(random.randint(0, 450))
-				#check if enemy always above player
+				#check if enemy always appears above player
 				if player.rect.top > enemy.rect.bottom:
 					enemy_group.add(enemy)
 			elif len(enemy_group) < MAX_ENEMY and score > 8000:
 				enemy = Enemy(random.randint(0, 450))
-				#check if enemy always above player
+				#check if enemy always appears above player
 				if player.rect.top > enemy.rect.bottom:
 					enemy_group.add(enemy)
 			   
