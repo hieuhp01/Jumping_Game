@@ -44,7 +44,7 @@ BLACK = (0, 0, 0)
 #define font
 font = pygame.font.SysFont('Times New Roman',24)
 
-#load images
+#load images player, background, platforms, enemies, button
 player_image = pygame.image.load('assets/Pink_Monster.png').convert_alpha()
 
 bg_image1 = pygame.image.load('assets/04_BG_Preview_With_Start.png').convert_alpha()
@@ -60,15 +60,17 @@ start_image = pygame.transform.scale(start_image,(100,50))
 exit_image = pygame.image.load('assets/Exit_Button.png').convert_alpha()
 exit_image = pygame.transform.scale(exit_image,(100,50))
 
-
+#Function to render text to screen
 def draw_text(text,font,text_color,x,y):
 	img = font.render(text,True,text_color)
 	screen.blit(img,(x,y))
 
+#Function to draw panel show score in screen	
 def draw_support():
 	pygame.draw.rect(screen, CYAN, (0, 0, SCREEN_WIDTH, 30))
 	draw_text('SCORE: ' + str(score), font, WHITE, 0, 0)
 
+#Function to draw background(loop)
 def draw_bg(bg_scroll):
 	screen.blit(bg_image2, (0, 0 + bg_scroll))
 	screen.blit(bg_image2, (0, -600 + bg_scroll))
@@ -132,13 +134,13 @@ class Player():
 			self.flip_x = False
 		if not(self.isJump):
 			if key[pygame.K_w]:
-				self.isJump=True 
+				self.isJump = True 
 				self.vel_y = -17
 			
 		#gravity
 		self.vel_y += GRAVITY
 		dy += self.vel_y
-		self.isJump = True
+		self.isJump = True #disable jumping when falling
 
 		#ensure player doesn't go off the edge of the screen
 		if self.rect.left + dx < 60:
@@ -156,7 +158,7 @@ class Player():
 						self.rect.bottom = platform.rect.top
 						dy = 0
 						self.vel_y = 0
-						self.isJump = False
+						self.isJump = False #enable jumping when player stand above the platform
                 #move sideway with platform
 				if platform.move_x != 0:
 					self.rect.x += platform.direction
@@ -166,7 +168,7 @@ class Player():
 			#if player is jumping
 			if self.vel_y < 0:
 				scroll = -dy
-				self.isJump = True
+				self.isJump = True 
 
 		#update rectangle position
 		self.rect.x += dx
@@ -228,9 +230,9 @@ class Enemy(pygame.sprite.Sprite):
 		self.speed = random.randint(2,3)
 		self.direction = random.choice([-1, 1])
 		self.rect = self.image.get_rect()
-		if self.direction == 1:
+		if self.direction == 1: #enemy move from left to right
 			self.rect.x = 0
-		else:
+		else: #enemy move from right to left
 			self.rect.x = SCREEN_WIDTH - 40
 
 		self.rect.y = y
@@ -244,7 +246,8 @@ class Enemy(pygame.sprite.Sprite):
 		#change enemy direction if it hit screen edge
 		if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
 			self.direction *= -1
-
+			
+                #check if enemy has gone off the screen then delete it
 		if self.rect.top > SCREEN_HEIGHT:
 			self.kill()
 
@@ -273,16 +276,16 @@ while run:
 	draw_text("Press a and d to move",font,RED,100,SCREEN_HEIGHT -200)
 	draw_text("Press w to jump",font,RED,125,SCREEN_HEIGHT -150)
 	if main_menu == True:
-		if exit_button.draw():
+		if exit_button.draw(): #If click exit button then close apllication
 			run = False
-		if start_button.draw():
+		if start_button.draw(): #If click start button then quit menu screen and start game
 			main_menu = False
 	else:
 
 		if game_over == False:
 			scroll = player.move()
 
-			#draw background
+			#draw background(infinite scroll based on player_jump)
 			bg_scroll += scroll
 			if bg_scroll >= 600:
 				bg_scroll = 0
@@ -292,18 +295,18 @@ while run:
 			if len(platform_group) < MAX_PLATFORMS:
 				p_w = random.randint(40, 60)
 				p_x = random.randint(60, SCREEN_WIDTH - 60 - p_w)
-				p_y = platform.rect.y - random.randint(80, 120)
+				p_y = platform.rect.y - random.randint(80, 120) #each platform distance from each other vertically 
 				p_speed = 0
 				p_type = random.randint(1, 4)
-				if p_type == 1 and score > 3000:
+				if p_type == 1 and score > 3000: #platform moving side to side
 					p_move_x = True
 					p_move_y = False
 					p_speed = 1
-				elif p_type == 2 and score > 5000:
+				elif p_type == 2 and score > 5000: #platform moving upside down
 					p_move_x = False
 					p_move_y = True
 					p_speed = 2
-				elif p_type == 3 and score > 10000:
+				elif p_type == 3 and score > 10000: #platform moving along diagonal
 					p_move_x = True
 					p_move_y = True
 					p_speed = 3
@@ -319,10 +322,12 @@ while run:
 			#generate enemies
 			if len(enemy_group) == 0 and score > 3000 and score < 8000:
 				enemy = Enemy(random.randint(0, 450))
+				#check if enemy always above player
 				if player.rect.top > enemy.rect.bottom:
 					enemy_group.add(enemy)
 			elif len(enemy_group) < MAX_ENEMY and score > 8000:
 				enemy = Enemy(random.randint(0, 450))
+				#check if enemy always above player
 				if player.rect.top > enemy.rect.bottom:
 					enemy_group.add(enemy)
 			   
@@ -354,6 +359,7 @@ while run:
 				if pygame.sprite.spritecollide(player,enemy_group,False, pygame.sprite.collide_mask):
 					game_over = True
 		else:
+			#when game over show
 			pygame.draw.rect(screen,BLACK,([0,0,400,600]))
 			draw_text("GAME OVER!",font,WHITE,130,200)
 			draw_text("SCORE: " + str(score),font,WHITE,130,250)
@@ -368,7 +374,8 @@ while run:
 					file.write(str(high_score))
 
 			key=pygame.key.get_pressed()
-			if key[pygame.K_r]:
+			#Press r to replay
+			if key[pygame.K_r]: 
 				#reset variables
 				game_over = False
 				score = 0
