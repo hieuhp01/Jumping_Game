@@ -273,8 +273,8 @@ while run:
 	clock.tick(FPS)
 
 	screen.blit(bg_image1, (0,0))
-	draw_text("Press a and d to move",font,RED,100,SCREEN_HEIGHT -200)
-	draw_text("Press w to jump",font,RED,125,SCREEN_HEIGHT -150)
+	draw_text("Press A and D to move",font,RED,100,SCREEN_HEIGHT -200)
+	draw_text("Press W to jump",font,RED,125,SCREEN_HEIGHT -150)
 	if main_menu == True:
 		if exit_button.draw(): #If click exit button then close apllication
 			run = False
