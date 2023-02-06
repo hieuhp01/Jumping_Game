@@ -25,6 +25,7 @@ MAX_ENEMY = 2
 scroll = 0
 bg_scroll = 0
 game_over = False
+menu_state = "main"
 main_menu = True
 score = 0
 
@@ -59,6 +60,13 @@ start_image = pygame.image.load('assets/Start_Button.png').convert_alpha()
 start_image = pygame.transform.scale(start_image,(100,50))
 exit_image = pygame.image.load('assets/Exit_Button.png').convert_alpha()
 exit_image = pygame.transform.scale(exit_image,(100,50))
+guide_image = pygame.image.load('assets/Guide_Button.png').convert_alpha()
+guide_image = pygame.transform.scale(guide_image,(100,50))
+highscore_image = pygame.image.load('assets/More_Button.png').convert_alpha()
+highscore_image = pygame.transform.scale(highscore_image,(100,50))
+back_image = pygame.image.load('assets/Back_Button.png').convert_alpha()
+back_image = pygame.transform.scale(back_image,(50,50))
+
 
 
 def draw_text(text,font,text_color,x,y):
@@ -178,8 +186,8 @@ class Player():
 		return scroll
 
 	def draw(self):
-		screen.blit(pygame.transform.flip(self.image, self.flip_x, False), (self.rect.x - 12, self.rect.y - 4))
-		
+		screen.blit(pygame.transform.flip(self.image, self.flip_x, False), (self.rect.x - 10, self.rect.y - 5))
+		pygame.draw.rect(screen, WHITE, self.rect, 2)
 
 
 #platform class
@@ -249,8 +257,11 @@ class Enemy(pygame.sprite.Sprite):
 			self.kill()
 
 #create buttons
-start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 100, start_image)
-exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, exit_image)
+start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 -100, start_image)
+guide_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 -50, guide_image)
+exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 50, exit_image)
+more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , highscore_image)
+back_button = Button(SCREEN_WIDTH -125, SCREEN_HEIGHT -100, back_image)
 				   
 #player init position
 player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
@@ -270,13 +281,29 @@ while run:
 	clock.tick(FPS)
 
 	screen.blit(bg_image1, (0,0))
-	draw_text("Press a and d to move",font,RED,100,SCREEN_HEIGHT -200)
-	draw_text("Press w to jump",font,RED,125,SCREEN_HEIGHT -150)
-	if main_menu == True:
-		if exit_button.draw():
-			run = False
-		if start_button.draw():
-			main_menu = False
+	if main_menu==True:
+		if menu_state =="main":
+			if exit_button.draw():
+				run = False
+			if start_button.draw():
+				main_menu=False 
+			if guide_button.draw():
+				menu_state ="guide"
+			if more_button.draw():
+				menu_state = "highscore"
+		if menu_state =="guide":
+			draw_text("Press A and D to move",font,RED,100,SCREEN_HEIGHT//2 -100)
+			draw_text("Press W to jump",font,RED,125,SCREEN_HEIGHT//2)
+			if back_button.draw():
+				menu_state = "main"
+		if menu_state == "highscore":
+			draw_text("HIGHEST SCORE: " + str(high_score),font,RED,75,300)
+			if back_button.draw():
+				menu_state = "main"
+        
+		
+		
+		
 	else:
 
 		if game_over == False:
@@ -341,6 +368,10 @@ while run:
 			platform_group.draw(screen)
 			enemy_group.draw(screen)
 			player.draw()
+
+			#draw enemy rectangle
+			#for enemy in enemy_group:
+				#pygame.draw.rect(screen, WHITE, enemy.rect, 2)
 		
 
 			#draw support
