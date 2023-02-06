@@ -407,7 +407,7 @@ while run:
 				enemy_group.empty()
 				platform = Platform(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT - 50, 100, False, False, False)
 				platform_group.add(platform)
-
+                        #Press space to back to main menu
 			if key[pygame.K_ESCAPE]:
 				#reset variables and back to main menu
 				game_over = False
