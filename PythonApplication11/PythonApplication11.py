@@ -187,8 +187,8 @@ class Player():
 		return scroll
 
 	def draw(self):
-		screen.blit(pygame.transform.flip(self.image, self.flip_x, False), (self.rect.x - 12, self.rect.y - 4))
-		
+		screen.blit(pygame.transform.flip(self.image, self.flip_x, False), (self.rect.x - 10, self.rect.y - 5)) #render the player and make it fit it's rectangle
+		#pygame.draw.rect(screen, WHITE, self.rect, 2)
 
 
 #platform class
