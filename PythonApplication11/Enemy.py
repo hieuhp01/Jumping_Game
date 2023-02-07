@@ -13,12 +13,11 @@ class Enemy(pygame.sprite.Sprite):
 		self.speed = random.randint(2,3)
 		self.direction = random.choice([-1, 1])
 		self.rect = self.image.get_rect()
+		self.rect.y = y
 		if self.direction == 1: #enemy move from left to right
 			self.rect.x = 0
 		else: #enemy move from right to left
 			self.rect.x = SCREEN_WIDTH - 40
-
-		self.rect.y = y
 
 	def update(self, scroll):
 		"""
@@ -34,7 +33,7 @@ class Enemy(pygame.sprite.Sprite):
 		if self.rect.left < 0 or self.rect.right > SCREEN_WIDTH:
 			self.direction *= -1
 			
-        #check if enemy has gone off the screen then delete it
+                #check if enemy has gone off the screen then delete it
 		if self.rect.top > SCREEN_HEIGHT:
 			self.kill()
 
