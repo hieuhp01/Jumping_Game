@@ -20,7 +20,7 @@ class Button():
 		and get action if the button get clicked by left mouse
 		"""
 		action = False
-
+		
 		#get mouse position
 		pos = pygame.mouse.get_pos()
 
@@ -32,7 +32,6 @@ class Button():
 
 		if pygame.mouse.get_pressed()[0] == 0:
 			self.clicked = False
-
 
 		#draw button
 		screen.blit(self.image, self.rect)
