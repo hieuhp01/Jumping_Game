@@ -320,7 +320,7 @@ while run:
 				p_y = platform.rect.y - random.randint(80, 120) #each platform distance from each other vertically 
 				p_speed = 0
 				p_type = random.randint(1, 4)
-				if p_type == 1 and score > 3000: #platform moving side to side
+				if p_type == 1 and score > 2000: #platform moving side to side
 					p_move_x = True
 					p_move_y = False
 					p_speed = 1
