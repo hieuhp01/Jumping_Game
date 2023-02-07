@@ -32,10 +32,10 @@ class Player():
 		#process keypresses
 		key = pygame.key.get_pressed()
 		if key[pygame.K_a]:
-			self.dx = -10
+			self.dx = -7
 			self.flip_x = True
 		if key[pygame.K_d]:
-			self.dx = 10
+			self.dx = 7
 			self.flip_x = False
 		if not(self.isJump):
 			if key[pygame.K_w]:
