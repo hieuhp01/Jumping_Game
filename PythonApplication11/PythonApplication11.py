@@ -58,7 +58,7 @@ enemy_image = pygame.image.load('assets/spike_ball_by_lwiis64_df30ssj.png').conv
 
 start_image = pygame.image.load('assets/Start_Button.png').convert_alpha()
 start_image = pygame.transform.scale(start_image,(100,50))
-exit_image = pygame.image.load('assets/Exit_Button.png').convert_alpha()
+exit_image = pygame.image.load('assets/ExitButton.png').convert_alpha()
 exit_image = pygame.transform.scale(exit_image,(100,50))
 option_image = pygame.image.load('assets/Option_Button.png').convert_alpha()
 option_image = pygame.transform.scale(option_image,(100,50))
