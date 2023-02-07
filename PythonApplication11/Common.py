@@ -1,8 +1,6 @@
 import pygame
 import random
 
-pygame.font.init()
-
 #game window dimensions
 SCREEN_WIDTH = 400
 SCREEN_HEIGHT = 600
@@ -26,7 +24,5 @@ RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 
 
-#define font
-font = pygame.font.SysFont('Times New Roman',24)
 
 

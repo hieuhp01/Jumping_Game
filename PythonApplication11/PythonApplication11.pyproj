@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>f4ef31d2-d4f1-4a46-ad84-39199ee7001e</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PythonApplication11.py</StartupFile>
+    <StartupFile>Main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -25,10 +25,16 @@
     <Compile Include="Common.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="LoadMedia.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MinorFunction.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Platform.py" />
     <Compile Include="Enemy.py" />
     <Compile Include="Player.py" />
-    <Compile Include="PythonApplication11.py" />
+    <Compile Include="Main.py" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="requirements.txt" />

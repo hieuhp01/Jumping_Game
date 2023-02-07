@@ -1,16 +1,8 @@
 import os
-from Common import *
-from Enemy import Enemy
-from Platform import Platform
-from Button import Button
-from Player import Player
+from LoadMedia import *
 
 #initialise pygame
 pygame.init()
-
-#create game window
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('GAME V1.0')
 
 #set frame rate
 clock = pygame.time.Clock()
@@ -22,61 +14,6 @@ if os.path.exists('score.txt'):
 		high_score = int(file.read())
 else:
 	high_score = 0
-
-#load and scale images player, background, platforms, enemies, button
-player_image = pygame.image.load('assets/Pink_Monster.png').convert_alpha()
-
-bg_image1 = pygame.image.load('assets/04_BG_Preview_With_Start.png').convert_alpha()
-bg_image1 = pygame.transform.scale(bg_image1,(400,600))
-bg_image2 = pygame.image.load('assets/04_BG_Preview_Without_Start.png').convert_alpha()
-bg_image2 = pygame.transform.scale(bg_image2,(400,600))
-
-platform_image = pygame.image.load('assets/Pad_1_1.png').convert_alpha()
-enemy_image = pygame.image.load('assets/spike_ball_by_lwiis64_df30ssj.png').convert_alpha()
-
-start_image = pygame.image.load('assets/Start_Button.png').convert_alpha()
-start_image = pygame.transform.scale(start_image,(100,50))
-exit_image = pygame.image.load('assets/ExitButton.png').convert_alpha()
-exit_image = pygame.transform.scale(exit_image,(100,50))
-option_image = pygame.image.load('assets/Option_Button.png').convert_alpha()
-option_image = pygame.transform.scale(option_image,(100,50))
-more_image = pygame.image.load('assets/More_Button.png').convert_alpha()
-more_image = pygame.transform.scale(more_image,(100,50))
-back_image = pygame.image.load('assets/Back_Button.png').convert_alpha()
-back_image = pygame.transform.scale(back_image,(50,50))
-
-#create buttons
-start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 100, start_image)
-exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 50, exit_image)
-option_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, option_image)
-more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , more_image)
-back_button = Button(SCREEN_WIDTH -125, SCREEN_HEIGHT -100, back_image)
-				   
-#player init position
-player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150, player_image)
-
-#create sprite groups for handling platforms and enemies
-platform_group = pygame.sprite.Group()
-enemy_group = pygame.sprite.Group()
-
-#create starting platform
-platform = Platform(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT - 50, 100, False, False, False, platform_image)
-platform_group.add(platform)
-
-#Function to render text to screen
-def draw_text(text,font,text_color,x,y,screen):
-	img = font.render(text,True,text_color)
-	screen.blit(img,(x,y))
-
-#Function to draw panel show score in screen	
-def draw_support(screen):
-	pygame.draw.rect(screen, CYAN, (0, 0, SCREEN_WIDTH, 30))
-	draw_text('SCORE: ' + str(score), font, WHITE, 0, 0,screen)
-
-#Function to draw background(loop)
-def draw_bg(bg_scroll,screen,image):
-	screen.blit(image, (0, 0 + bg_scroll))
-	screen.blit(image, (0, -600 + bg_scroll))
 
 #game loop
 if __name__ == "__main__":
@@ -127,6 +64,9 @@ if __name__ == "__main__":
 					bg_scroll = 0
 				draw_bg(bg_scroll,screen,bg_image2)
 
+				#draw temporary scroll threshold
+				pygame.draw.line(screen, WHITE, (0, SCROLL_THRESHOLD), (SCREEN_WIDTH, SCROLL_THRESHOLD))
+
 				#generate platforms
 				if len(platform_group) < MAX_PLATFORMS:
 					p_w = random.randint(40, 60)
@@ -154,22 +94,8 @@ if __name__ == "__main__":
 
 				#update platforms
 				platform_group.update(scroll)
-
 				#check collision between player and platforms
-				for platform in platform_group:
-					#collision in the y direction
-					if platform.rect.colliderect(player.rect.x, player.rect.y + player.dy, player.width, player.height):
-						#check if above the platform
-						if player.rect.bottom < platform.rect.centery:
-							#if player is falling
-							if player.vel_y > 0:
-								player.rect.bottom = platform.rect.top
-								player.dy = 0
-								player.vel_y = 0
-								player.isJump = False #enable jumping when player stand above the platform
-						#move sideway with platform
-						if platform.move_x != 0:
-							player.rect.x += platform.direction
+				player.collisionP(platform,platform_group)
 
 				#generate enemies
 				if len(enemy_group) == 0 and score > 3000 and score < 8000:
@@ -204,7 +130,7 @@ if __name__ == "__main__":
 					#pygame.draw.rect(screen, WHITE, enemy.rect, 2)
 		
 				#draw support
-				draw_support(screen)
+				draw_support(screen,score)
 
 				#check game over
 				if player.rect.top > SCREEN_HEIGHT:

@@ -32,10 +32,10 @@ class Player():
 		#process keypresses
 		key = pygame.key.get_pressed()
 		if key[pygame.K_a]:
-			self.dx = -10
+			self.dx = -7
 			self.flip_x = True
 		if key[pygame.K_d]:
-			self.dx = 10
+			self.dx = 7
 			self.flip_x = False
 		if not(self.isJump):
 			if key[pygame.K_w]:
@@ -73,5 +73,23 @@ class Player():
 		screen.blit(pygame.transform.flip(self.image, self.flip_x, False), (self.rect.x - 10, self.rect.y - 5)) #render the player and make it fit it's rectangle
 		#draw player's rectangle
 		#pygame.draw.rect(screen, WHITE, self.rect, 2)
+
+	def collisionP(self,platform,platform_group):
+		#check collision between player and platforms
+				for platform in platform_group:
+					#collision in the y direction
+					if platform.rect.colliderect(self.rect.x, self.rect.y + self.dy, self.width, self.height):
+						#check if above the platform
+						if self.rect.bottom < platform.rect.centery:
+							#if player is falling
+							if self.vel_y > 0:
+								self.rect.bottom = platform.rect.top
+								self.dy = 0
+								self.vel_y = 0
+								self.isJump = False #enable jumping when player stand above the platform
+						#move sideway with platform
+						if platform.move_x != 0:
+							self.rect.x += platform.direction
+
 
 
