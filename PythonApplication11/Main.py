@@ -140,7 +140,7 @@ if __name__ == "__main__":
 					game_over = True
 			else:
 				#when game over show
-				pygame.time.delay(500)
+				pygame.time.delay(150)
 				pygame.draw.rect(screen,BLACK,([0,0,400,600]))
 				draw_text("GAME OVER!",font,WHITE,130,200,screen)
 				draw_text("SCORE: " + str(score),font,WHITE,130,250,screen)
