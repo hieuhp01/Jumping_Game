@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 FPS = 60
 
 #game variables
-SCROLL_THRESH = 200
+SCROLL_THRESHOLD = 200
 GRAVITY = 1
 MAX_PLATFORMS = 10
 MAX_ENEMY = 2
@@ -171,7 +171,7 @@ class Player():
 					self.rect.x += platform.direction
 					
 		#check if the player has bounced to the top of the screen
-		if self.rect.top <= SCROLL_THRESH:
+		if self.rect.top <= SCROLL_THRESHOLD:
 			#if player is jumping
 			if self.vel_y < 0:
 				scroll = -dy
@@ -212,7 +212,7 @@ class Platform(pygame.sprite.Sprite):
 			self.move_counter += 1
 			self.rect.x += self.direction * self.speed
 
-        #moving platform vertical if it is a moving platform
+                #moving platform vertical if it is a moving platform
 		if self.move_y == True:
 			self.move_counter += 1
 			self.rect.y += self.direction * self.speed
@@ -299,7 +299,7 @@ while run:
 			if back_button.draw():
 				menu_state = "main"
 		if menu_state == "highscore":
-			draw_text("HIGHEST SCORE: " + str(high_score), font, RED, 75, 300)
+			draw_text("HIGHEST SCORE: " + str(high_score), font, RED, 75, SCREEN_HEIGHT//2)
 			if back_button.draw():
 				menu_state = "main"
 	else:
@@ -361,15 +361,18 @@ while run:
 				score += scroll
 
 			#draw line at previous high score
-			pygame.draw.line(screen, WHITE, (0, score - high_score + SCROLL_THRESH), (SCREEN_WIDTH, score - high_score + SCROLL_THRESH), 3)
-			draw_text("HIGH SCORE", font, WHITE, SCREEN_WIDTH - 170, score - high_score + SCROLL_THRESH)
+			#pygame.draw.line(screen, WHITE, (0, score - high_score + SCROLL_THRESHOLD), (SCREEN_WIDTH, score - high_score + SCROLL_THRESHOLD), 3)
+			#draw_text("HIGH SCORE", font, WHITE, SCREEN_WIDTH - 170, score - high_score + SCROLL_THRESHOLD)
 
 			#draw sprites
 			platform_group.draw(screen)
 			enemy_group.draw(screen)
 			player.draw()
+			
+			#draw enemy rectangle
+			#for enemy in enemy_group:
+				#pygame.draw.rect(screen, WHITE, enemy.rect, 2)
 		
-
 			#draw support
 			draw_support()
 
