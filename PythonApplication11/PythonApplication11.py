@@ -60,10 +60,10 @@ start_image = pygame.image.load('assets/Start_Button.png').convert_alpha()
 start_image = pygame.transform.scale(start_image,(100,50))
 exit_image = pygame.image.load('assets/Exit_Button.png').convert_alpha()
 exit_image = pygame.transform.scale(exit_image,(100,50))
-guide_image = pygame.image.load('assets/Guide_Button.png').convert_alpha()
-guide_image = pygame.transform.scale(guide_image,(100,50))
-highscore_image = pygame.image.load('assets/More_Button.png').convert_alpha()
-highscore_image = pygame.transform.scale(highscore_image,(100,50))
+option_image = pygame.image.load('assets/Option_Button.png').convert_alpha()
+option_image = pygame.transform.scale(option_image,(100,50))
+more_image = pygame.image.load('assets/More_Button.png').convert_alpha()
+more_image = pygame.transform.scale(more_image,(100,50))
 back_image = pygame.image.load('assets/Back_Button.png').convert_alpha()
 back_image = pygame.transform.scale(back_image,(50,50))
 
@@ -261,8 +261,8 @@ class Enemy(pygame.sprite.Sprite):
 #create buttons
 start_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 100, start_image)
 exit_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 + 50, exit_image)
-guide_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, guide_image)
-more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , highscore_image)
+option_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 - 50, option_image)
+more_button = Button(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT // 2 , more_image)
 back_button = Button(SCREEN_WIDTH -125, SCREEN_HEIGHT -100, back_image)
 				   
 #player init position
@@ -289,7 +289,7 @@ while run:
 				run = False
 			if start_button.draw(): #click start button to play
 				main_menu = False 
-			if guide_button.draw(): #click option button to show how to play
+			if option_button.draw(): #click option button to show how to play
 				menu_state = "guide"
 			if more_button.draw(): #click more button to show highestscore
 				menu_state = "highscore"
