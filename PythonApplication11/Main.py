@@ -64,8 +64,8 @@ if __name__ == "__main__":
 					bg_scroll = 0
 				draw_bg(bg_scroll,screen,bg_image2)
 
-				#draw temporary scroll threshold
-				pygame.draw.line(screen, WHITE, (0, SCROLL_THRESHOLD), (SCREEN_WIDTH, SCROLL_THRESHOLD))
+				#draw scroll threshold
+				#pygame.draw.line(screen, WHITE, (0, SCROLL_THRESHOLD), (SCREEN_WIDTH, SCROLL_THRESHOLD))
 
 				#generate platforms
 				if len(platform_group) < MAX_PLATFORMS:
@@ -136,11 +136,11 @@ if __name__ == "__main__":
 				if player.rect.top > SCREEN_HEIGHT:
 					game_over = True
 				#check game over if collide with enemy
-				if pygame.sprite.spritecollide(player, enemy_group, False):
-					if pygame.sprite.spritecollide(player,enemy_group,False, pygame.sprite.collide_mask):
-						game_over = True
+				if pygame.sprite.spritecollide(player,enemy_group,False, pygame.sprite.collide_mask):
+					game_over = True
 			else:
 				#when game over show
+				pygame.time.delay(500)
 				pygame.draw.rect(screen,BLACK,([0,0,400,600]))
 				draw_text("GAME OVER!",font,WHITE,130,200,screen)
 				draw_text("SCORE: " + str(score),font,WHITE,130,250,screen)

@@ -1,8 +1,7 @@
 from Common import *
 
-pygame.font.init()
-
 #define font
+pygame.font.init()
 font = pygame.font.SysFont('Times New Roman',24)
 
 #Function to render text to screen

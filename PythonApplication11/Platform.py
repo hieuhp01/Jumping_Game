@@ -23,7 +23,7 @@ class Platform(pygame.sprite.Sprite):
 
 	def update(self, scroll):
 		"""
-		This function define the moving ability platform
+		This function define the moving ability of platform
 		Input : scroll to update platform's vertical position 
 		Output: Decide the movement of platform and delete it when out of the screen
 		"""
