@@ -1,0 +1,3 @@
+pip==23.0
+pygame==2.1.2
+setuptools==67.1.0
