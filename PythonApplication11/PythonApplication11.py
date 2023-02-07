@@ -282,8 +282,8 @@ while run:
 
 	clock.tick(FPS)
 
-	screen.blit(bg_image1, (0,0))
 	if main_menu == True:
+		screen.blit(bg_image1, (0,0))
 		if menu_state == "main":
 			if exit_button.draw(): #click exit button to close application
 				run = False
