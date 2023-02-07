@@ -181,7 +181,7 @@ class Player():
 		self.rect.x += dx
 		self.rect.y += dy + scroll
 
-		#create mask for fast collision detection
+		#create mask for perfect fast collision detection
 		self.mask = pygame.mask.from_surface(self.image)
 
 		return scroll
