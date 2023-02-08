@@ -5,6 +5,7 @@ from Button import Button
 from Player import Player
 from MinorFunction import *
 
+
 #create game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('GAME V1.0')

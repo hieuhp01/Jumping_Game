@@ -15,6 +15,11 @@ if os.path.exists('score.txt'):
 else:
 	high_score = 0
 
+#Function to draw background(loop)
+def draw_bg(bg_scroll,screen):
+	screen.blit(bg_image1, (0, 0 + bg_scroll))
+	screen.blit(bg_image2, (0, -600 + bg_scroll))
+	screen.blit(bg_image2, (0, -1200 + bg_scroll))
 #game loop
 if __name__ == "__main__":
 	run = True
@@ -60,9 +65,9 @@ if __name__ == "__main__":
 
 				#draw background(infinite scroll based on player_jump)
 				bg_scroll += scroll
-				if bg_scroll >= 600:
-					bg_scroll = 0
-				draw_bg(bg_scroll,screen,bg_image2)
+				if bg_scroll >= 1200:
+					bg_scroll = 600
+				draw_bg(bg_scroll,screen)
 
 				#draw scroll threshold
 				#pygame.draw.line(screen, WHITE, (0, SCROLL_THRESHOLD), (SCREEN_WIDTH, SCROLL_THRESHOLD))
@@ -71,7 +76,7 @@ if __name__ == "__main__":
 				if len(platform_group) < MAX_PLATFORMS:
 					p_w = random.randint(40, 60)
 					p_x = random.randint(60, SCREEN_WIDTH - 60 - p_w)
-					p_y = platform.rect.y - random.randint(80, 120) #each platform distance from each other vertically 
+					p_y = platform.rect.y - random.randint(60, 120) #each platform distance from each other vertically 
 					p_speed = 0
 					p_type = random.randint(1, 4)
 					if p_type == 1 and score > 3000: #platform moving side to side
@@ -124,7 +129,7 @@ if __name__ == "__main__":
 				platform_group.draw(screen)
 				enemy_group.draw(screen)
 				player.draw(screen)
-
+				
 				#draw enemy rectangle
 				#for enemy in enemy_group:
 					#pygame.draw.rect(screen, WHITE, enemy.rect, 2)
@@ -139,8 +144,9 @@ if __name__ == "__main__":
 				if pygame.sprite.spritecollide(player,enemy_group,False, pygame.sprite.collide_mask):
 					game_over = True
 			else:
+				
 				#when game over show
-				pygame.time.delay(500)
+				pygame.time.delay(150)
 				pygame.draw.rect(screen,BLACK,([0,0,400,600]))
 				draw_text("GAME OVER!",font,WHITE,130,200,screen)
 				draw_text("SCORE: " + str(score),font,WHITE,130,250,screen)
@@ -161,6 +167,7 @@ if __name__ == "__main__":
 					game_over = False
 					score = 0
 					scroll = 0
+					bg_scroll =0 
 					player.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
 					platform_group.empty()
 					enemy_group.empty()
@@ -172,6 +179,7 @@ if __name__ == "__main__":
 					game_over = False
 					score = 0
 					scroll = 0
+					bg_scroll =0
 					player.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
 					platform_group.empty()
 					enemy_group.empty()

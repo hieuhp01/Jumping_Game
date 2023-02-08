@@ -13,8 +13,8 @@ def draw_text(text,font,text_color,x,y,screen):
 def draw_support(screen,score):
 	pygame.draw.rect(screen, CYAN, (0, 0, SCREEN_WIDTH, 30))
 	draw_text('SCORE: ' + str(score), font, WHITE, 0, 0,screen)
+	
 
-#Function to draw background(loop)
-def draw_bg(bg_scroll,screen,image):
-	screen.blit(image, (0, 0 + bg_scroll))
-	screen.blit(image, (0, -600 + bg_scroll))
+
+	
+	

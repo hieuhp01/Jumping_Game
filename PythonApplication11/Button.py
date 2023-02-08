@@ -23,7 +23,6 @@ class Button():
 
 		#get mouse position
 		pos = pygame.mouse.get_pos()
-
 		#check mouseover and clicked conditions
 		if self.rect.collidepoint(pos):
 			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False: #[0] means left mouse click
