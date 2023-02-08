@@ -71,7 +71,7 @@ if __name__ == "__main__":
 				if len(platform_group) < MAX_PLATFORMS:
 					p_w = random.randint(40, 60)
 					p_x = random.randint(60, SCREEN_WIDTH - 60 - p_w)
-					p_y = platform.rect.y - random.randint(80, 120) #each platform distance from each other vertically 
+					p_y = platform.rect.y - random.randint(60, 120) #each platform distance from each other vertically 
 					p_speed = 0
 					p_type = random.randint(1, 4)
 					if p_type == 1 and score > 3000: #platform moving side to side
