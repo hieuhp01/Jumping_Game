@@ -1,7 +1,8 @@
 Jump-Up game using Pygame
 
-Basic functions: Moving character - Creat infinite platforms and moving platforms for jumping and moving
-Create enemy - Game over when the character fall off the screen or collide with enemy
+Basic functions:
+- Moving character - Creat infinite platforms and moving platforms for jumping and moving
+- Create enemy - Game over when the character fall off the screen or collide with enemy
 
 Others function: Score counter - Show highest score
 
